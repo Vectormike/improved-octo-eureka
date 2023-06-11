@@ -175,10 +175,4 @@ npm run prisma:generate
 npm run prisma:generate:watch
 ```
 
-## GraphQL Client
-
-A GraphQL client is necessary to consume the GraphQL api provided by the NestJS Server.
-
-Checkout [Apollo](https://www.apollographql.com/) a popular GraphQL client which offers several clients for React, Angular, Vue.js, Native iOS, Native Android and more.
-
 **[⬆ back to top](#overview)**
