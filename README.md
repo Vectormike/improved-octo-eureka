@@ -98,6 +98,15 @@ npm run start
 npm run start:dev
 ```
 
+### 7. Run test server
+
+```bash
+npm run test
+
+# watch mode
+npm run test:watch
+```
+
 GraphQL Playground for the NestJS Server is available here: http://localhost:3000/graphql
 
 ## GraphQL Playground
