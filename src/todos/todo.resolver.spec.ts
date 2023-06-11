@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TodosResolver } from '../todos/todo.resolver';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from 'nestjs-prisma';
@@ -5,6 +6,7 @@ import { Todo } from './models/todo.model';
 import { User } from 'src/users/models/user.model';
 import { PaginationArgs } from 'src/common/pagination/pagination.args';
 import { TodoOrder } from './dto/todo-order.input';
+import { TodoConnection } from './models/todo-connection.model';
 import { TodoOrderField } from './dto/todo-order.input';
 import { OrderDirection } from 'src/common/order/order-direction';
 
@@ -66,6 +68,7 @@ describe('TodosResolver', () => {
         completed: true,
       };
 
+      // Mock the create method to return the new todo
       jest
         .spyOn(prismaService.todo, 'create')
         .mockImplementation(() => Promise.resolve(mockNewTodo) as any);
@@ -84,9 +87,51 @@ describe('TodosResolver', () => {
     });
 
     it('Get a list of all Todo items', async () => {
+      const mockUser: User = {
+        id: '1',
+        firstname: 'Test User',
+        lastname: 'Test',
+        email: '',
+        password: '',
+        role: 'USER',
+        createdAt: undefined,
+        updatedAt: undefined,
+      };
+
+      const mockPaginationArgs: PaginationArgs = {
+        after: 'cursor',
+        before: null,
+        first: 10,
+        last: null,
+      };
+
+      const mockQuery = 'test';
+
+      const mockOrderBy: TodoOrder = {
+        field: TodoOrderField.title,
+        direction: OrderDirection.asc,
+      };
+
+      const mockTodoConnection: TodoConnection = {
+        pageInfo: {
+          hasNextPage: false,
+          hasPreviousPage: false,
+          startCursor: null,
+          endCursor: null,
+        },
+        edges: [],
+        totalCount: 0,
+      };
+
       // Mock the findMany and count methods
       jest.spyOn(prismaService.todo, 'findMany').mockResolvedValue([]);
       jest.spyOn(prismaService.todo, 'count').mockResolvedValue(0);
+
+      const result = await resolver.todos(
+        mockPaginationArgs,
+        mockQuery,
+        mockOrderBy
+      );
 
       // expect(result).toEqual(mockTodoConnection);
       expect(prismaService.todo.count).toHaveBeenCalledWith({
@@ -102,6 +147,17 @@ describe('TodosResolver', () => {
         title: 'Test Todo',
         description: 'Test description',
         completed: true,
+        createdAt: undefined,
+        updatedAt: undefined,
+      };
+
+      const mockUser: User = {
+        id: '1',
+        firstname: 'Test User',
+        lastname: 'Test',
+        email: '',
+        password: '',
+        role: 'USER',
         createdAt: undefined,
         updatedAt: undefined,
       };
