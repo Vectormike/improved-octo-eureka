@@ -1,0 +1,146 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Auth {
+  """JWT access token"""
+  accessToken: JWT!
+
+  """JWT refresh token"""
+  refreshToken: JWT!
+  user: User!
+}
+
+input CreateTodoInput {
+  completed: Boolean!
+  description: String
+  title: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""
+A field whose value is a JSON Web Token (JWT): https://jwt.io/introduction.
+"""
+scalar JWT
+
+input LoginInput {
+  email: String!
+  password: String!
+}
+
+type Mutation {
+  createTodo(data: CreateTodoInput!): Todo!
+  login(data: LoginInput!): Auth!
+  refreshToken(token: JWT!): Token!
+  signup(data: SignupInput!): Auth!
+}
+
+"""
+Possible directions in which to order a list of items when provided an `orderBy` argument.
+"""
+enum OrderDirection {
+  asc
+  desc
+}
+
+type PageInfo {
+  endCursor: String
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+}
+
+type Query {
+  completedTodos(after: String, before: String, first: Int, last: Int, orderBy: TodoOrder, query: String, skip: Int): TodoConnection!
+  getTodos: String!
+  hello(name: String!): String!
+  helloWorld: String!
+  me: User!
+  searchTodos(query: String!): [Todo!]!
+  todo(todoId: String!): Todo!
+  todos(after: String, before: String, first: Int, last: Int, orderBy: TodoOrder, query: String, skip: Int): TodoConnection!
+  userTodos(userId: String!): [Todo!]!
+}
+
+"""User role"""
+enum Role {
+  ADMIN
+  USER
+}
+
+input SignupInput {
+  email: String!
+  firstname: String
+  lastname: String
+  password: String!
+}
+
+type Subscription {
+  postCreated: Todo!
+}
+
+type Todo {
+  author: User
+  completed: Boolean!
+
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  description: String
+  id: ID!
+  title: String!
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}
+
+type TodoConnection {
+  edges: [TodoEdge!]
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+type TodoEdge {
+  cursor: String!
+  node: Todo!
+}
+
+input TodoOrder {
+  direction: OrderDirection!
+  field: TodoOrderField!
+}
+
+"""Properties by which post connections can be ordered."""
+enum TodoOrderField {
+  completed
+  createdAt
+  description
+  id
+  title
+  updatedAt
+}
+
+type Token {
+  """JWT access token"""
+  accessToken: JWT!
+
+  """JWT refresh token"""
+  refreshToken: JWT!
+}
+
+type User {
+  """Identifies the date and time when the object was created."""
+  createdAt: DateTime!
+  email: String!
+  firstname: String
+  id: ID!
+  lastname: String
+  role: Role!
+  todos: [Todo!]
+
+  """Identifies the date and time when the object was last updated."""
+  updatedAt: DateTime!
+}

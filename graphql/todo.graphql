@@ -1,0 +1,102 @@
+# Get a list of all Todo items
+query Todos {
+  todos(first: 20, orderBy: { field: title, direction: desc }) {
+    totalCount
+    edges {
+      cursor
+      node {
+        title
+        description
+        completed
+        author {
+          lastname
+          firstname
+          email
+        }
+      }
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}
+
+# Get a specific Todo item by ID
+query Todo {
+  todo(todoId: "clin3slsi0007thgct4hqdxyr") {
+    title
+    description
+    completed
+    author {
+      lastname
+      firstname
+      email
+    }
+  }
+}
+
+# Search the list of Todo items by title or description
+query searchTodo {
+  searchTodos(query: "Join us for Prisma Day 2019 in Berlin") {
+    title
+    description
+    completed
+    author {
+      email
+      id
+      lastname
+      firstname
+    }
+  }
+}
+
+# Create a new Todo item
+mutation CreateTodo {
+  createTodo(
+    data: {
+      title: "ode a NestJS GraphQL API with Prisma"
+      description: "No description"
+      completed: true
+    }
+  ) {
+    title
+    description
+    completed
+  }
+}
+
+query UserTodos {
+  userPosts(userId: "clir5d3mr0002thlgqm3sfbn5") {
+    title
+    description
+    completed
+  }
+}
+
+query CompletedTodoConnection {
+  completedTodos(first: 20, orderBy: { field: title, direction: desc }) {
+    totalCount
+    edges {
+      cursor
+      node {
+        title
+        description
+        completed
+        author {
+          lastname
+          firstname
+          email
+        }
+      }
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

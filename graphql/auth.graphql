@@ -1,0 +1,34 @@
+mutation User {
+  login(data: { email: "victorjonah199@gmail.com", password: "secret42" }) {
+    accessToken
+    refreshToken
+  }
+}
+
+mutation AuthUser {
+  signup(
+    data: {
+      email: "victorjonah9@gmail.com"
+      password: "secret42"
+      lastname: "Jonah"
+      firstname: "Victor"
+    }
+  ) {
+    accessToken
+    refreshToken
+    user {
+      email
+      firstname
+      lastname
+    }
+  }
+}
+
+mutation RefreshToken {
+  refreshToken(
+    token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJja3lqdDZrdmkwMDIxcHdldmM0OW8zYTAyIiwiaWF0IjoxNjQ0ODMyNzYyLCJleHAiOjE2NDU0Mzc1NjJ9.eSD3zIsVBNS1pTRtYjjYrCWUYBcUL5ZeCpPTDXEc68Y"
+  ) {
+    accessToken
+    refreshToken
+  }
+}
