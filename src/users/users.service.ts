@@ -1,6 +1,5 @@
-import { PrismaService } from 'nestjs-prisma';
-import { Injectable, BadRequestException } from '@nestjs/common';
-import { PasswordService } from 'src/auth/password.service';
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
