@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { TodosResolver } from '../todos/todo.resolver';
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaService } from 'nestjs-prisma';
@@ -67,6 +68,7 @@ describe('TodosResolver', () => {
         completed: true,
       };
 
+      // Mock the create method to return the new todo
       jest
         .spyOn(prismaService.todo, 'create')
         .mockImplementation(() => Promise.resolve(mockNewTodo) as any);
